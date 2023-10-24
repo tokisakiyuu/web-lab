@@ -1,9 +1,9 @@
-import './globals.css'
+import '@/app/globals.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'TokisakiYuu Space',
-  description: 'A hodgepodge of technologies',
+  title: '延迟跟随鼠标的小球',
+  description: '实验性项目',
 }
 
 export default function RootLayout({
