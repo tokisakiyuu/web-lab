@@ -37,7 +37,7 @@ const Slideshow: FC<Props> = ({ sections }) => {
 
   return (
     <div
-      className="flex w-max"
+      className="flex w-max relative"
       style={{ transform: `translateX(${-contentOffset}px)` }}
       onWheel={wheelHandler}
     >

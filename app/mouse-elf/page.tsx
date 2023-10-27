@@ -32,13 +32,11 @@ interface Rect {
 
 const isActiveAtom = atom(false)
 const activeRectAtom = atom<Rect>({ left: 0, top: 0, width: 0, height: 0 })
-const positionInSlotAtom = atom({ x: 0, y: 0 })
 
 const Slot: FC<ComponentProps<'div'>> = ({ children, ...props }) => {
   const ref = useRef<HTMLDivElement>(null)
   const setIsActive = useSetAtom(isActiveAtom)
   const setActiveRect = useSetAtom(activeRectAtom)
-  const setPositionInSlot = useSetAtom(positionInSlotAtom)
 
   return (
     <div
