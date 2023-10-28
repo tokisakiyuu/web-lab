@@ -22,21 +22,21 @@ const SectionOne = () => {
 
       <div className={cx({ 'animate-[fade-in_1s_cubic-bezier(.64,0,.32,1)_forwards]': !isWating }, 'flex items-center text-primary-color p-5 opacity-0')}>
         <div className='flex items-center gap-1'>
-          <div className='w-[15px] h-[15px]'>
+          <Pin className='w-[15px] h-[15px]'>
             <GithubIcon />
-          </div>
+          </Pin>
           <div>·</div>
-          <div className='w-[18px] h-[18px]'>
+          <Pin className='w-[18px] h-[18px]'>
             <ZhihuIcon />
-          </div>
+          </Pin>
           <div>·</div>
-          <div className='w-[18px] h-[18px]'>
+          <Pin className='w-[18px] h-[18px]'>
             <BiliBiliIcon />
-          </div>
+          </Pin>
           <div>·</div>
-          <div className='w-[18px] h-[18px]'>
+          <Pin className='w-[18px] h-[18px]'>
             <MailIcon />
-          </div>
+          </Pin>
         </div>
         
         <Pin className={cx({ 'animate-[fade-in_1s_cubic-bezier(.64,0,.32,1)_forwards]': !isWating }, 'text-primary-color ml-auto text-sm opacity-0')}>

@@ -1,5 +1,6 @@
-import { FC, useState, useEffect, ComponentProps, useRef, ReactNode } from "react"
+import { FC, useState, useEffect, ComponentProps, useRef } from "react"
 import { atom, useAtomValue, useSetAtom } from 'jotai'
+import clsx from 'clsx'
 import { isInteractionReadyAtom } from '../state'
 
 const isActiveAtom = atom(false)
@@ -7,8 +8,8 @@ const activeRectAtom = atom({ left: 0, top: 0, width: 0, height: 0 })
 
 const PointerSpirit: FC = () => {
   const [ballPos, setBallPos] = useState({ x: 0, y: 0 })
-  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
-  const realCursorPos = useCursorPosition()
+  const [{ x: cx, y: cy }, setCursorPos] = useState({ x: 0, y: 0 })
+  const { x: rx, y: ry } = useCursorPosition()
   const isActive = useAtomValue(isActiveAtom)
   const activeRect = useAtomValue(activeRectAtom)
   const isInteractionReady = useAtomValue(isInteractionReadyAtom)
@@ -19,14 +20,16 @@ const PointerSpirit: FC = () => {
       stopAutoOff()
       setCursorPos({ x: activeRect.left + activeRect.width / 2, y: activeRect.top + activeRect.height / 2 })
     } else {
-      toVisible()
-      setCursorPos({ x: realCursorPos.x, y: realCursorPos.y })
+      if ((cx !== rx) || (cy !== ry)) {
+        toVisible()
+        setCursorPos({ x: rx, y: ry })
+      }
     }
-  }, [isActive, realCursorPos.x, realCursorPos.y])
+  }, [isActive, rx, ry])
 
   const updateElfPosition = () => {
-    const dx = cursorPos.x - ballPos.x
-    const dy = cursorPos.y - ballPos.y
+    const dx = cx - ballPos.x
+    const dy = cy - ballPos.y
     setBallPos({
       x: ballPos.x + dx * 0.1,
       y: ballPos.y + dy * 0.1,
@@ -51,12 +54,13 @@ const PointerSpirit: FC = () => {
       }}
     >
       <div
-        className="bg-[#e91e63] pointer-events-none m-auto absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+        className={clsx(
+          'bg-[#e91e63] pointer-events-none m-auto absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] transition-[width_.6s,height_.6s,border-radius_.6s]',
+          isActive ? 'rounded-[12px]' : 'rounded-[50%]',
+        )}
         style={{
-          width: isActive ? activeRect.width : 60,
-          height: isActive ? activeRect.height : 60,
-          borderRadius: isActive ? 0 : '50%',
-          transition: `width .6s, height .6s, border-Radius .6s`,
+          width: isActive ? activeRect.width + 12 : 20,
+          height: isActive ? activeRect.height + 12 : 20
         }}
       />
     </div>

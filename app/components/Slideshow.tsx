@@ -1,6 +1,5 @@
-import { FC, ReactNode, useCallback, useEffect, useMemo, useState, WheelEventHandler } from 'react'
-import { useWindowSize, useLatest } from 'react-use'
-import { atom, getDefaultStore, useAtom, useStore } from 'jotai'
+import { FC, ReactNode, useEffect, useState, WheelEventHandler } from 'react'
+import { useWindowSize } from 'react-use'
 
 export interface Props {
   sections: ReactNode[]
