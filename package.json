@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-spring/web": "^9.7.3",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.10",
     "jotai": "^2.4.3",

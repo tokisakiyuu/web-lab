@@ -1,17 +1,21 @@
 import { FC, ReactNode, useEffect, useState, WheelEventHandler } from 'react'
 import { useWindowSize } from 'react-use'
+import { useAtomValue, useAtom } from 'jotai'
+import { isInteractionReadyAtom, scrollOffsetAtom } from '../state'
 
 export interface Props {
   sections: ReactNode[]
 }
 
 const Slideshow: FC<Props> = ({ sections }) => {
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffset] = useAtom(scrollOffsetAtom)
   const [contentOffset, setContentOffset] = useState(0)
   const windowSize = useWindowSize()
   const maxOffset = windowSize.width * (sections.length - 1)
+  const isInteractionReady = useAtomValue(isInteractionReadyAtom)
 
   const wheelHandler: WheelEventHandler = e => {
+    if (!isInteractionReady) return
     const { deltaX, deltaY } = e
     const variation = (Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY) * 2
     const newOffset = offset + variation * 0.3
